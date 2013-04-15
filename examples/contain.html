@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="stylesheet" type="text/css" href="shared.css"></link>
+	<style>
+		.imageHolder {
+			width: 800px;
+			height: 800px;
+			background-color: #8ab3bf;
+			border: 1px solid black;
+		}
+		.cssContain {
+			background-image: url('mother.jpg');
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: center;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Contain Demo</h1>
+		<p>This is a demo of the <code>contain</code> option.</p>
+		<div class="imageHolder cssContain"></div>
+		<pre><code>
+&lt;script src=&quot;../lib/jquery-1.7.1.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../jquery.fillmore.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	$.fillmore( { src: &quot;pot-holder.jpg&quot; } );
+&lt;/script&gt;
+		</code></pre>
+	</div>
+	<script src="../lib/jquery-1.7.1.min.js"></script>
+	<script src="../jquery.fillmore.js"></script>
+	<script>
+	</script>
+</body>
+</html>
