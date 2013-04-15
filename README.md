@@ -162,6 +162,7 @@ $('div').fillmore( { src: "/path/to/image.jpg", speed: 150 } );
 $(".button").click(function() {
   $('div').fillmore( { src: "/path/to/next_image.jpg" } );
 });
+```
 
 Removing the image at a later time:
 
@@ -172,7 +173,7 @@ $('div').fillmore( { src: "/path/to/image.jpg", speed: 150 } );
 $(".button").click(function() {
   $('div').fillmore( "destroy" );
 });
-
+```
 
 ## Changelog
 
