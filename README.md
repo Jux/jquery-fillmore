@@ -1,4 +1,4 @@
-h1. jQuery Fillmore
+# jQuery Fillmore
 
 Fillmore is a jQuery plugin that allows you to add a dynamically-resized background image to any page, or any given element.
 The image will stretch to fit the page / element, and will automatically resize as the window size changes.
@@ -15,99 +15,98 @@ like how jQuery UI does it).
 The original jquery Backstretch plugin is here btw: https://github.com/srobbin/jquery-backstretch.  Thanks, Scott Robbin.
 
 
-h2. Demo
+## Demo
 
-There are a couple of examples included with this package, or feel free to check it out live "on the project page itself.":http://srobbin.com/jquery-plugins/jquery-fillmore/
+There are a couple of examples included with this package, or feel free to check it out live [on the project page itself](http://srobbin.com/jquery-plugins/jquery-fillmore/).
 
 
-h2. Setup
+## Setup
 
 Include the jQuery library and Fillmore plugin files in your webpage (preferably at the bottom of the page, before the closing BODY tag):
 
-<pre><code><script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+```html
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.fillmore.min.js"></script>
-</code></pre>
+```
 
 Note: The example above uses the Google hosted version of jQuery; there is also a jQuery source file included with this distribution, if you would like to host it yourself.
 
 
-h2. Usage
+## Usage
 
 General usage of adding an image:
 
-<pre><code><script type="text/javascript">
-  // To stretch an image over the document body
-  $.fillmore( Object options );
+```javascript
+// To stretch an image over the document body
+$.fillmore( Object options );
 
-  // The above is equivalent to:
-  $('body').fillmore( Object options );
+// The above is equivalent to:
+$('body').fillmore( Object options );
 
 
-  // To stretch an image over any element(s) (jQuery wrapped set)
-  $('div.myEls').fillmore( Object options );
-</script>
-</code></pre>
+// To stretch an image over any element(s) (jQuery wrapped set)
+$('div.myEls').fillmore( Object options );
+```
 
 Calling methods on the underlying Fillmore object:
 
-<pre><code><script type="text/javascript">
-  $.fillmore( String methodName, [ Mixed methodArgs... ] );
+```javascript
+$.fillmore( String methodName, [ Mixed methodArgs... ] );
 
-  // The above is equivalent to:
-  $('body').fillmore( String methodName, [ Mixed methodArgs... ] );
+// The above is equivalent to:
+$('body').fillmore( String methodName, [ Mixed methodArgs... ] );
 
 
-  // And on any jQuery wrapped set
-  $('div.myEls').fillmore( String methodName, [ Mixed methodArgs... ] );
-</script>
-</code></pre>
+// And on any jQuery wrapped set
+$('div.myEls').fillmore( String methodName, [ Mixed methodArgs... ] );
+```
 
 See the examples, below.
 
 
-h2. Settings
+## Settings
 
-h3. src
+### src
 
 Required. The src of the image to load. (type=String)
 
-h3. focusX
+### focusX
 
-The percentage from the left edge of the photo to keep fixed within the element, relative to its position in the original photo.  Uses (or mimics) the CSS background-position percentage values - see "the spec":http://www.w3.org/TR/css3-background/#background-position for more info. (type=Number, default=50)
+The percentage from the left edge of the photo to keep fixed within the element, relative to its position in the original photo.  Uses (or mimics) the CSS background-position percentage values - see [the spec](http://www.w3.org/TR/css3-background/#background-position) for more info. (type=Number, default=50)
 
-h3. focusY
+### focusY
 
 Focus percentage from top - see focusX for more info. (type=Number, default=50)
 
-h3. speed
+### speed
 
 This is the speed at which the image will fade in, after downloading is complete. Integers are accepted, as well as standard jQuery speed strings (slow, normal, fast). (type=Integer, default=0)
 
-h3. onImageLoad
+### onImageLoad
 
 A function to run when the new image has been loaded (but not yet faded in). (type=Function, default=undefined)
 
-h3. onImageVisible / callback
+### onImageVisible / callback
 
 A function to run when the new image has been loaded and faded in. Either option name can be used (onImageVisible or callback). (type=Function, default=undefined)
 
-h3. noCss3
+### noCss3
 
 Set to true to make the plugin *not* use CSS3 background-size:cover, if available. This can be used if you find a situation where the background-size:cover is not working correctly, and you need to fall back to the regular image stretching implementation. (If you find one of these situations though, let me know by creating a github issue!) (type=Boolean, default=false)
 
 
 
-h2. Methods
+## Methods
 
-h3. getSrc
+### getSrc
 
 Retrieves the original src of the image used to Fillmore the element.
 
-h3. getImageSize
+### getImageSize
 
 Retrieves the size of the original image used. Returns an object with properties `width` and `height`, or returns null if the image is not yet loaded.
 
-h3. getViewableImageArea
+### getViewableImageArea
 
 Returns an object (hashmap) of properties defining the viewable area of the stretched image. Returns the following properties:
 
@@ -118,113 +117,105 @@ Returns an object (hashmap) of properties defining the viewable area of the stre
 * {Number} stretchedWidth: The width that the background image has been stretched to be, to stretch over the container.
 * {Number} stretchedHeight: The height that the background image has been stretched to be, to stretch over the container.
 
-h3. imageIsLoaded
+### imageIsLoaded
 
 Returns true if the latest image requested has been loaded. This will return true as soon as the image has loaded, before the image is visible (i.e. has been faded in).
 
-h3. imageIsVisible
+### imageIsVisible
 
 Returns true if the image is both loaded, and has been faded in.
 
-h3. resize
+### resize
 
 Recalculates the image size in the container. This method should be called if the container's size changes, to fix the position of the backstretched image (as Fillmore has no way of knowing if the container size has changed). However, this does not need to be called on window resize, as Fillmore does take care of that. This only needs to be called if you are dynamically modifying the container element's size.
 
-h3. destroy
+### destroy
 
 Removes Fillmore from the given element(s), and returns the element(s) to their original state.
 
 
 
-h2. Examples
+## Examples
 
-<pre><code><script type="text/javascript">
-  // Add a stretched background image to the page (body)
-  $.fillmore( { src: "/path/to/image.jpg", speed: 150 } );
-</script>
-</code></pre>
+```javascript
+// Add a stretched background image to the page (body)
+$.fillmore( { src: "/path/to/image.jpg", speed: 150 } );
+```
 
 Want to change the background image after Fillmore has been loaded? No problem, just call it again!
 
-<pre><code><script type="text/javascript">
-  $.fillmore( { src: "/path/to/image.jpg", speed: 150 } );
-  
-  // Perhaps you'd like to change the image on a button click
-  $(".button").click(function() {
-    $.fillmore( { src: "/path/to/next_image.jpg" } );
-  });
-</script>
-</code></pre>
+```javascript
+$.fillmore( { src: "/path/to/image.jpg", speed: 150 } );
 
+// Perhaps you'd like to change the image on a button click
+$(".button").click(function() {
+  $.fillmore( { src: "/path/to/next_image.jpg" } );
+});
+```
 
 You may also stretch a background image over any element(s) as well.
 
-<pre><code><script type="text/javascript">
-  $('div').fillmore( { src: "/path/to/image.jpg", speed: 150 } );
-  
-  // And then changing them at a later time...
-  $(".button").click(function() {
-    $('div').fillmore( { src: "/path/to/next_image.jpg" } );
-  });
-</script>
-</code></pre>
+```javascript
+$('div').fillmore( { src: "/path/to/image.jpg", speed: 150 } );
 
+// And then changing them at a later time...
+$(".button").click(function() {
+  $('div').fillmore( { src: "/path/to/next_image.jpg" } );
+});
 
 Removing the image at a later time:
 
-<pre><code><script type="text/javascript">
-  $('div').fillmore( { src: "/path/to/image.jpg", speed: 150 } );
-  
-  // Removing the Fillmore'd image, by calling the destroy() method
-  $(".button").click(function() {
-    $('div').fillmore( "destroy" );
-  });
-</script>
-</code></pre>
+```javascript
+$('div').fillmore( { src: "/path/to/image.jpg", speed: 150 } );
+
+// Removing the Fillmore'd image, by calling the destroy() method
+$(".button").click(function() {
+  $('div').fillmore( "destroy" );
+});
 
 
-h2. Changelog
+## Changelog
 
-h3. Version 1.4.1
+### Version 1.4.1
 
 * The 'speed' setting only affects the call to fillmore() that it is provided with, not subsequent calls which may just change
   other settings such as 'focusX' and 'focusY'.
 * Upgrade Modernizr to 2.6.2.
 
-h3. Version 1.4
+### Version 1.4
 
 * Added getViewableImageArea() method.
 
-h3. Version 1.3
+### Version 1.3
 
 * Reorganized CSS3 and ImageStretch subclasses to a more well-factored state.
 * Implemented getImageSize() method, to retrieve the original image size (can only be called after the image has loaded, however).
 * Implemented onImageLoad / onImageVisible callbacks.
 * Implemented imageIsLoaded() and imageIsVisible() methods.
 
-h3. Version 1.2
+### Version 1.2
 
 * <a href="https://github.com/afeld" target="_blank">afeld</a> implemented CSS3 background-size:cover implementation, for supporting browsers.
 
 
-h3. Version 1.1
+### Version 1.1
 
 * Implemented getSrc() method, to retrieve the src used for the Fillmore'd image at a later time.
 * Implemented the resize() method, which can be called after the container has been resized, and the backstretched image's position needs to be updated.
 
 
-h3. Version 1.0
+### Version 1.0
 
 * Rewrote original jquery Backstretch plugin (https://github.com/srobbin/jquery-backstretch) to be able to stretch a background image over any element; not just the page body.
 * Changed method signature from 3 param backstretch signature to 1 param 'settings' signature.
 * Added a 'destroy' method to remove the Fillmore instance, and reset the container element back to its original state. 
 
 
-h2. Support
+## Support
 
 Please file a ticket on our Github issue tracker.
 
 
-h2. Contributing
+## Contributing
 
 Fork it! :)
