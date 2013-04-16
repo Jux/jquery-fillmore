@@ -1,14 +1,3 @@
-/*!
- * jQuery Fillmore
- * Version 1.4.1
- * https://github.com/gregjacobs/jquery-fillmore
- *
- * Add a dynamically-resized background image to any element
- *
- * Copyright (c) 2012 Gregory Jacobs with Aidan Feldman (jux.com)
- * Dual licensed under the MIT and GPL licenses.
- */
-
 /**
  * @abstract
  * @class $.Fillmore
@@ -520,7 +509,9 @@
 	
 	} );
 	
-})( jQuery );/**
+})( jQuery );
+
+/**
  * @class $.FillmoreCss3
  * @extends $.Fillmore
  * 
@@ -642,7 +633,9 @@
 		
 	} );
 	
-})( jQuery );/**
+})( jQuery );
+
+/**
  * @class $.FillmoreImageStretch
  * @extends $.Fillmore
  * 
@@ -808,7 +801,9 @@
 		
 	} );
 	
-})( jQuery );// jQuery Adapter Code
+})( jQuery );
+
+// jQuery Adapter Code
 
 /*global window, jQuery, Modernizr */
 (function( $ ) {
