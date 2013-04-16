@@ -25,7 +25,7 @@ There are a couple of examples included with this package, or feel free to check
 Include the jQuery library and Fillmore plugin files in your webpage (preferably at the bottom of the page, before the closing BODY tag):
 
 ```html
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script type="text/javascript" src="jquery.fillmore.min.js"></script>
 ```
 
