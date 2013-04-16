@@ -10,3 +10,9 @@ npm install
 # build the files
 grunt
 ```
+
+To test visually:
+
+```bash
+open examples/*.html
+```
