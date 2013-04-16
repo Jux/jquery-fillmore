@@ -39,7 +39,7 @@ module.exports = function(grunt) {
     },
     watch: {
       files: ['<%= concat.dist.src %>'],
-      tasks: ['concat']
+      tasks: ['default']
     }
   });
 
