@@ -555,11 +555,8 @@
 		 */
 		createFillmoreEl : function() {
 			$.Fillmore.prototype.createFillmoreEl.apply( this, arguments );
-	
-			this.$fillmoreEl.css( {
-				'background-repeat' : 'no-repeat',
-				'background-size' : 'cover'
-			} );
+
+			this.$fillmoreEl.css( 'background-repeat', 'no-repeat' );
 		},
 		
 		
@@ -633,6 +630,92 @@
 		
 	} );
 	
+})( jQuery );
+
+/**
+ * @class $.FillmoreCss3Frame
+ * @extends $.FillmoreCss3
+ * 
+ * CSS3 background-size:contain implementation of Fillmore. Used when CSS3 is available.
+ */
+/*global jQuery */
+(function( $ ) {
+  
+  /**
+   * Creates a new FillmoreCss3Frame instance.
+   * 
+   * @constructor
+   * @param {HTMLElement/jquery} containerEl The container element where a fillmore'd image should be placed.
+   */
+  $.FillmoreCss3Frame = function( containerEl ) {
+    $.FillmoreCss3.apply( this, arguments );
+  };
+  
+  
+  $.extend( $.FillmoreCss3Frame.prototype, $.FillmoreCss3.prototype, {
+    
+    /**
+     * Method that is called when the image is loaded, to apply the image to the background
+     * of the {@link #$fillmoreEl}.
+     *
+     * @protected
+     * @method onImageLoad
+     * @param {jQuery.Event} evt
+     */
+    onImageLoad : function( evt ) {
+      var img = this.$imgEl[ 0 ],
+        $fillmoreEl = this.$fillmoreEl;
+
+      if ( $fillmoreEl.width() < img.width || $fillmoreEl.height() < img.height ) {
+        // image is larger than the container
+        $fillmoreEl.css( 'background-size', 'contain' );
+      }
+
+      $.FillmoreCss3.prototype.onImageLoad.apply( this, arguments );
+    }
+    
+  } );
+  
+})( jQuery );
+
+/**
+ * @class $.FillmoreCss3Cover
+ * @extends $.FillmoreCss3
+ * 
+ * CSS3 background-size:cover implementation of Fillmore. Used when CSS3 is available.
+ */
+/*global jQuery */
+(function( $ ) {
+  
+  /**
+   * Creates a new FillmoreCss3Cover instance.
+   * 
+   * @constructor
+   * @param {HTMLElement/jquery} containerEl The container element where a fillmore'd image should be placed.
+   */
+  $.FillmoreCss3Cover = function( containerEl ) {
+    $.FillmoreCss3.apply( this, arguments );
+  };
+  
+  
+  $.extend( $.FillmoreCss3Cover.prototype, $.FillmoreCss3.prototype, {
+    
+    /**
+     * Extension of {@link $.Fillmore#createFillmoreEl createFillmoreEl} from the superclass, to 
+     * apply the necessary CSS properties needed for the CSS3 implementation.
+     *
+     * @protected
+     * @method createFillmoreEl
+     * @return {jQuery}
+     */
+    createFillmoreEl : function() {
+      $.FillmoreCss3.prototype.createFillmoreEl.apply( this, arguments );
+
+      this.$fillmoreEl.css( 'background-size', 'cover' );
+    }
+    
+  } );
+  
 })( jQuery );
 
 /**
@@ -818,7 +901,16 @@
 				// Create an instance on the element if there is none yet
 				if( !fillmore ) {
 					if ( ( $.Fillmore.useCss3 && !settings.noCss3 ) || settings.forceCss3 ) {  // the 'forceCss3' option is undocumented, as it is just used for the unit tests, and shouldn't be used normally
-						fillmore = new $.FillmoreCss3( el );
+						switch ( settings.mode ) {
+							case 'frame':
+								fillmore = new $.FillmoreCss3Frame( el );
+								break;
+							case 'cover':
+								fillmore = new $.FillmoreCss3Cover( el );
+								break;
+							default:
+								throw new Error( "unknown mode: " + settings.mode );
+						}
 					} else {
 						fillmore = new $.FillmoreImageStretch( el );	
 					}

@@ -13,7 +13,16 @@
 				// Create an instance on the element if there is none yet
 				if( !fillmore ) {
 					if ( ( $.Fillmore.useCss3 && !settings.noCss3 ) || settings.forceCss3 ) {  // the 'forceCss3' option is undocumented, as it is just used for the unit tests, and shouldn't be used normally
-						fillmore = new $.FillmoreCss3( el );
+						switch ( settings.mode ) {
+							case 'frame':
+								fillmore = new $.FillmoreCss3Frame( el );
+								break;
+							case 'cover':
+								fillmore = new $.FillmoreCss3Cover( el );
+								break;
+							default:
+								throw new Error( "unknown mode: " + settings.mode );
+						}
 					} else {
 						fillmore = new $.FillmoreImageStretch( el );	
 					}

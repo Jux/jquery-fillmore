@@ -42,11 +42,8 @@
 		 */
 		createFillmoreEl : function() {
 			$.Fillmore.prototype.createFillmoreEl.apply( this, arguments );
-	
-			this.$fillmoreEl.css( {
-				'background-repeat' : 'no-repeat',
-				'background-size' : 'cover'
-			} );
+
+			this.$fillmoreEl.css( 'background-repeat', 'no-repeat' );
 		},
 		
 		

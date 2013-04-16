@@ -8,9 +8,12 @@
 			display: inline-block;
 			vertical-align: middle;
 			margin-right: 70px;
-			background-color: #8ab3bf;
 			border-width: 4px;
 			border-style: solid;
+		}
+		.imageHolder,
+		.fillmoreInner {
+			background-color: #8ab3bf;
 		}
 		.good {
 			border-color: #24CF00;
@@ -41,8 +44,8 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Contain Demo</h1>
-		<p>This is a demo of the <code>contain</code> option.</p>
+		<h1>Frame Demo</h1>
+		<p>This is a demo of the <code>mode: 'frame'</code> option.</p>
 		<h2>Normal <code>background-image</code></h2>
 		<p>Doesn't shrink to fit.</p>
 		<div class="imageHolder smallImage cssBackground bad"></div>
@@ -51,7 +54,7 @@
 		<p>Stretches the image.</p>
 		<div class="imageHolder smallImage cssContain good"></div>
 		<div class="imageHolder largeImage cssContain bad"></div>
-		<h2><code>$(…).fillmore({ …, mode: 'contain' });</code></h2>
+		<h2><code>$(…).fillmore({ …, mode: 'frame' });</code></h2>
 		<p>Aah, just right.</p>
 		<div class="imageHolder smallImage fillmoreContain good"></div>
 		<div class="imageHolder largeImage fillmoreContain good"></div>
@@ -59,7 +62,10 @@
 &lt;script src=&quot;../lib/jquery.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;../jquery.fillmore.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
-	$.fillmore( { src: &quot;pot-holder.jpg&quot; } );
+	$.fillmore( {
+	  src: &quot;pot-holder.jpg&quot;,
+	  mode: &quot;frame&quot;
+	} );
 &lt;/script&gt;
 		</code></pre>
 	</div>
@@ -68,7 +74,7 @@
 	<script>
 		$('.fillmoreContain').fillmore({
 			src: 'mother.jpg',
-			mode: 'contain'
+			mode: 'frame'
 		});
 	</script>
 </body>

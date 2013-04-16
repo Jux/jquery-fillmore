@@ -8,6 +8,8 @@ module.exports = function(grunt) {
         src: [
           'src/Fillmore.js',
           'src/FillmoreCss3.js',
+          'src/FillmoreCss3Frame.js',
+          'src/FillmoreCss3Cover.js',
           'src/FillmoreImageStretch.js',
           'src/jQueryAdapter.js'
         ],
