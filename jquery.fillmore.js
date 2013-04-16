@@ -607,7 +607,7 @@
 			// This is used to preload the image, before applying it to the background of the $fillmore element,
 			// and then calling the callback
 			this.$imgEl = $( '<img />' )
-				.bind( 'load error', $.proxy( this.onImageLoad, this ) );
+				.on( 'load error', $.proxy( this.onImageLoad, this ) );
 							
 			this.$imgEl.attr( "src", src ); // Hack for IE img onload event
 		},
@@ -802,7 +802,7 @@
 			
 			// Create a new image element
 			this.$imgEl = $( '<img style="position: absolute; margin: 0; padding: 0; border: none; z-index: -999999;" />' )
-				.bind( 'load error', $.proxy( this.onImageLoad, this ) )
+				.on( 'load error', $.proxy( this.onImageLoad, this ) )
 				.appendTo( this.$fillmoreEl );
 							
 			this.$imgEl.attr( "src", src ); // Hack for IE img onload event
