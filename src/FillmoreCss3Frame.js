@@ -29,15 +29,15 @@
      * @param {jQuery.Event} evt
      */
     onImageLoad : function( evt ) {
-      var img = this.$imgEl[ 0 ],
+      $.FillmoreCss3.prototype.onImageLoad.apply( this, arguments );
+
+      var imgSize = this.getImageSize(),
         $fillmoreEl = this.$fillmoreEl;
 
-      if ( $fillmoreEl.width() < img.width || $fillmoreEl.height() < img.height ) {
+      if ( $fillmoreEl.width() < imgSize.width || $fillmoreEl.height() < imgSize.height ) {
         // image is larger than the container
         $fillmoreEl.css( 'background-size', 'contain' );
       }
-
-      $.FillmoreCss3.prototype.onImageLoad.apply( this, arguments );
     }
     
   } );

@@ -28,6 +28,7 @@
 	 */
 	$.Fillmore.defaultSettings = {
 		src      : null, // The src for the image
+		mode     : 'cover',
 		focusX   : 50,   // Focus position from left - Number between 1 and 100
 		focusY   : 50,   // Focus position from top - Number between 1 and 100
 		speed    : 0,    // fadeIn speed for background after image loads (e.g. "fast" or 500)
@@ -140,7 +141,7 @@
 		init : function( containerEl ) {
 			// Start with the default settings (need a copy)
 			this.settings = $.extend( {}, $.Fillmore.defaultSettings );
-			
+
 			var $containerEl = this.$containerEl = $( containerEl );
 	
 			// Make sure the container element has a transparent background, so we can see the stretched image
@@ -151,7 +152,7 @@
 				
 			} else {
 				// Make sure we cut the image off at the end of the container element
-				this.originalContainerOverflow = $containerEl[ 0 ].style.overflow;
+				this.originalContainerOverflow = $containerEl.css( 'overflow' );
 				$containerEl.css( 'overflow', 'hidden' );
 				
 				// Make sure the container element has a positioning context, so we can position the $fillmoreEl inside it. Must be absolute/relative/fixed.
@@ -243,15 +244,17 @@
 				return null;
 				
 			} else {
-				var imageEl = this.getImageEl()[ 0 ];
+				var $image = this.getImageEl(),
+					imgEl = $image[ 0 ];
+
 				return {
-					width: imageEl.width,
-					height: imageEl.height
+					width: imgEl.width || $image.width(),
+					height: imgEl.height || $image.height()
 				};	
 			}
 		},
-		
-		
+
+
 		/**
 		 * Calculates the stretched size and offset of where the top/left of the image should be in relation to the top/left of the viewable 
 		 * area. Because the image is "stretched" behind the viewable area, its top/left position usually exists above and to the left
@@ -275,22 +278,18 @@
 		 * @return {Number} return.stretchedHeight The height that the background image should be, to stretch over the container.
 		 */
 		calculateStretchedSizeAndOffsets : function() {
-			var $imageEl = this.getImageEl(),
-			    imgEl = $imageEl[ 0 ];
+			var $image = this.getImageEl();
 			
 			// Store the ratio of the image's width to height. This is for the offsets calculation.
-			$imageEl.css( { width: "auto", height: "auto" } );  // make sure the image element doesn't have any explicit width/height for the measurement (which may be added if it has been resized before)
+			$image.css( { width: "auto", height: "auto" } );  // make sure the image element doesn't have any explicit width/height for the measurement (which may be added if it has been resized before)
 			
-			var imgWidth = imgEl.width || $imageEl.width(),
-				imgHeight = imgEl.height || $imageEl.height(),
-				imgRatio = imgWidth / imgHeight,
-				
+			var imgSize = this.getImageSize(),
+				imgRatio = imgSize.width / imgSize.height,
 				settings = this.settings,
-			    $containerEl = this.$containerEl,
-			    $containerSizingEl = this.$containerSizingEl,
-			    containerHeight = $containerSizingEl.outerHeight() || $containerSizingEl.height(),  // outerHeight() for regular elements, and height() for window (which returns null for outerHeight())
-			    containerWidth = $containerSizingEl.outerWidth() || $containerSizingEl.width(),	    // outerWidth() for regular elements, and width() for window (which returns null for outerWidth())
-				
+				$containerSizingEl = this.$containerSizingEl,
+				containerHeight = $containerSizingEl.outerHeight() || $containerSizingEl.height(),  // outerHeight() for regular elements, and height() for window (which returns null for outerHeight())
+				containerWidth = $containerSizingEl.outerWidth() || $containerSizingEl.width(),	    // outerWidth() for regular elements, and width() for window (which returns null for outerWidth())
+
 				offsetLeft = 0,
 				offsetTop = 0,
 				stretchedWidth = containerWidth,
@@ -321,8 +320,7 @@
 		 * of the viewable area as well.
 		 * 
 		 * @method getViewableImageArea
-		 * @return {Object} An object (hashmap) with the following properties (unless the image is not currently loaded, in 
-		 * 	  which case this method returns null):
+		 * @return {Object} An object (hashmap) with the following properties (unless the image is not currently loaded, in which case this method returns null):
 		 * @return {Number} return.width The number of pixels that represent the width of the viewable area.
 		 * @return {Number} return.height The number of pixels that represent the height of the viewable area.
 		 * @return {Number} return.offsetLeft The number of pixels from the left side of the image to the left side of the viewable area.

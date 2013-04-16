@@ -109,7 +109,7 @@
 		 * @param {jQuery.Event} evt
 		 */
 		onImageLoad : function( evt ) {
-			var src = this.$imgEl[ 0 ].src;
+			var src = this.$imgEl.attr( 'src' );
 			this.$fillmoreEl.css( 'background-image', "url('" + src + "')" );
 			
 			$.Fillmore.prototype.onImageLoad.apply( this, arguments );
