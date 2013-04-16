@@ -11,6 +11,12 @@ npm install
 grunt
 ```
 
+While developing, have it build automatically as files are changed:
+
+```bash
+grunt watch
+```
+
 To test visually:
 
 ```bash
