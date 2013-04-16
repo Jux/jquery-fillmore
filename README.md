@@ -70,6 +70,13 @@ See the examples, below.
 
 Required. The src of the image to load. (type=String)
 
+### mode
+
+(type=String, default='cover') Possible values:
+
+* **cover** - essentially a shim for `background-size: cover`
+* **frame** - acts like `background-size: contain` when the image is larger than the container, or like a normal `no-repeat center` background otherwise
+
 ### focusX
 
 The percentage from the left edge of the photo to keep fixed within the element, relative to its position in the original photo.  Uses (or mimics) the CSS background-position percentage values - see [the spec](http://www.w3.org/TR/css3-background/#background-position) for more info. (type=Number, default=50)
