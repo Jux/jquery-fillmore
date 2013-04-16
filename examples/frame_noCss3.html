@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="shared.css"></link>
+  <style>
+    .imageHolder {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 70px;
+      border-width: 4px;
+      border-style: solid;
+    }
+    .imageHolder,
+    .fillmoreInner {
+      background-color: #8ab3bf;
+    }
+    .good {
+      border-color: #24CF00;
+    }
+    .bad {
+      border-color: red;
+    }
+    .smallImage {
+      width: 100px;
+      height: 100px;
+    }
+    .largeImage {
+      width: 800px;
+      height: 800px;
+    }
+    .cssBackground {
+      background-image: url('mother.jpg');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    .cssContain {
+      background-image: url('mother.jpg');
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Frame Demo</h1>
+    <p>This is a demo of the <code>mode: 'frame'</code> option, with the CSS3 option disabled.</p>
+
+    <h2>Normal <code>background-image</code></h2>
+    <p>Doesn't shrink to fit.</p>
+    <div class="imageHolder smallImage cssBackground bad"></div>
+    <div class="imageHolder largeImage cssBackground good"></div>
+
+    <h2><code>background-size: contain;</code></h2>
+    <p>Stretches the image.</p>
+    <div class="imageHolder smallImage cssContain good"></div>
+    <div class="imageHolder largeImage cssContain bad"></div>
+
+    <h2><code>$(…).fillmore({ …, mode: 'frame' });</code></h2>
+    <p>Aah, just right.</p>
+    <div class="imageHolder smallImage fillmoreContain good"></div>
+    <div class="imageHolder largeImage fillmoreContain good"></div>
+
+    <pre><code>
+&lt;script src=&quot;../lib/jquery.js&quot;&gt;&lt;/script&gt;
+&lt;script src=&quot;../jquery.fillmore.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+  $.fillmore( {
+    noCss3: true,  // disable CSS3 implementation, even if the browser supports it
+    src: &quot;pot-holder.jpg&quot;,
+    mode: &quot;frame&quot;
+  } );
+&lt;/script&gt;
+    </code></pre>
+  </div>
+  <script src="../lib/jquery.js"></script>
+  <script src="../jquery.fillmore.js"></script>
+  <script>
+    $('.fillmoreContain').fillmore({
+      noCss3: true,
+      src: 'mother.jpg',
+      mode: 'frame'
+    });
+  </script>
+</body>
+</html>

@@ -46,18 +46,22 @@
 	<div class="container">
 		<h1>Frame Demo</h1>
 		<p>This is a demo of the <code>mode: 'frame'</code> option.</p>
+
 		<h2>Normal <code>background-image</code></h2>
 		<p>Doesn't shrink to fit.</p>
 		<div class="imageHolder smallImage cssBackground bad"></div>
 		<div class="imageHolder largeImage cssBackground good"></div>
+
 		<h2><code>background-size: contain;</code></h2>
 		<p>Stretches the image.</p>
 		<div class="imageHolder smallImage cssContain good"></div>
 		<div class="imageHolder largeImage cssContain bad"></div>
+
 		<h2><code>$(…).fillmore({ …, mode: 'frame' });</code></h2>
 		<p>Aah, just right.</p>
 		<div class="imageHolder smallImage fillmoreContain good"></div>
 		<div class="imageHolder largeImage fillmoreContain good"></div>
+
 		<pre><code>
 &lt;script src=&quot;../lib/jquery.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;../jquery.fillmore.js&quot;&gt;&lt;/script&gt;
