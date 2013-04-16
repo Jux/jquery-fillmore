@@ -17,11 +17,8 @@
 							case 'frame':
 								fillmore = new $.FillmoreCss3Frame( el );
 								break;
-							case 'cover':
+							default: // or 'cover'
 								fillmore = new $.FillmoreCss3Cover( el );
-								break;
-							default:
-								throw new Error( "unknown mode: " + settings.mode );
 						}
 					} else {
 						fillmore = new $.FillmoreImageStretch( el );	
