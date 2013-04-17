@@ -79,7 +79,7 @@ Required. The src of the image to load. (type=String)
 
 ### focusX
 
-The percentage from the left edge of the photo to keep fixed within the element, relative to its position in the original photo.  Uses (or mimics) the CSS background-position percentage values - see [the spec](http://www.w3.org/TR/css3-background/#background-position) for more info. (type=Number, default=50)
+The percentage from the left edge of the photo to keep fixed within the element, relative to its position in the original photo.  Uses (or mimics) the CSS background-position percentage values - see [the spec](http://www.w3.org/TR/css3-background/#background-position) for more info.  Note this doesn't apply in `mode: 'frame'`. (type=Number, default=50)
 
 ### focusY
 
