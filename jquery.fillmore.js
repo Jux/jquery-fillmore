@@ -289,14 +289,15 @@
 				imgRatio = imgWidth / imgHeight,
 				settings = this.settings,
 				$containerSizingEl = this.$containerSizingEl,
-				containerHeight = $containerSizingEl.outerHeight() || $containerSizingEl.height(),  // outerHeight() for regular elements, and height() for window (which returns null for outerHeight())
-				containerWidth = $containerSizingEl.outerWidth() || $containerSizingEl.width(),	    // outerWidth() for regular elements, and width() for window (which returns null for outerWidth())
 
 				offsetLeft = 0,
 				offsetTop = 0,
-				stretchedWidth, stretchedHeight;
+				containerWidth, containerHeight, stretchedWidth, stretchedHeight;
 
 			if ( settings.mode === 'frame' ) {
+				containerHeight = $containerSizingEl.height();
+				containerWidth = $containerSizingEl.width();
+
 				if ( imgWidth > containerWidth || imgHeight > containerHeight ) {
 					// scale down - equivalent of 'background-size: contain'
 					// see http://stackoverflow.com/a/10297552/358804
@@ -314,9 +315,19 @@
 					stretchedHeight = imgHeight;
 				}
 
-				// TODO center the image
+				// center the image
+				// TODO consolidate w/ logic below
+				if ( stretchedWidth < containerWidth ) {
+					offsetLeft = ( containerWidth - stretchedWidth ) / 2;
+				}
+				if ( stretchedHeight < containerHeight ) {
+					offsetTop = ( containerHeight - stretchedHeight ) / 2;
+				}
 
 			} else { // 'cover'
+				containerHeight = $containerSizingEl.outerHeight() || $containerSizingEl.height();  // outerHeight() for regular elements, and height() for window (which returns null for outerHeight())
+				containerWidth = $containerSizingEl.outerWidth() || $containerSizingEl.width();	    // outerWidth() for regular elements, and width() for window (which returns null for outerWidth())
+
 				stretchedWidth = containerWidth;
 				stretchedHeight = stretchedWidth / imgRatio;
 
@@ -873,15 +884,27 @@
 		resize : function() {
 			if( this.$imgEl && this.imageLoaded ) {  // make sure the image has been created and loaded, in case of a resize that happens too early
 				try {
-					var sizeAndOffsets = this.calculateStretchedSizeAndOffsets();
-					
-					var bgCSS = { 
-						left: "-" + sizeAndOffsets.offsetLeft + "px",
-						top: "-" + sizeAndOffsets.offsetTop + "px"
-					};
+					var sizeAndOffsets = this.calculateStretchedSizeAndOffsets(),
+						bgCss;
 					
 					// Update the elements
-					this.$fillmoreEl.width( sizeAndOffsets.stretchedWidth ).height( sizeAndOffsets.stretchedHeight );
+					if ( this.settings.mode === 'frame' ) {
+						this.$fillmoreEl.width( '100%' ).height( '100%' );
+
+						bgCSS = {
+							left: sizeAndOffsets.offsetLeft + "px",
+							top: sizeAndOffsets.offsetTop + "px"
+						};
+
+					} else {
+						this.$fillmoreEl.width( sizeAndOffsets.stretchedWidth ).height( sizeAndOffsets.stretchedHeight );
+
+						bgCSS = {
+							left: "-" + sizeAndOffsets.offsetLeft + "px",
+							top: "-" + sizeAndOffsets.offsetTop + "px"
+						};
+					}
+
 					this.$imgEl.width( sizeAndOffsets.stretchedWidth ).height( sizeAndOffsets.stretchedHeight ).css( bgCSS );
 					
 				} catch( err ) {

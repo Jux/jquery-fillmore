@@ -289,14 +289,15 @@
 				imgRatio = imgWidth / imgHeight,
 				settings = this.settings,
 				$containerSizingEl = this.$containerSizingEl,
-				containerHeight = $containerSizingEl.outerHeight() || $containerSizingEl.height(),  // outerHeight() for regular elements, and height() for window (which returns null for outerHeight())
-				containerWidth = $containerSizingEl.outerWidth() || $containerSizingEl.width(),	    // outerWidth() for regular elements, and width() for window (which returns null for outerWidth())
 
 				offsetLeft = 0,
 				offsetTop = 0,
-				stretchedWidth, stretchedHeight;
+				containerWidth, containerHeight, stretchedWidth, stretchedHeight;
 
 			if ( settings.mode === 'frame' ) {
+				containerHeight = $containerSizingEl.height();
+				containerWidth = $containerSizingEl.width();
+
 				if ( imgWidth > containerWidth || imgHeight > containerHeight ) {
 					// scale down - equivalent of 'background-size: contain'
 					// see http://stackoverflow.com/a/10297552/358804
@@ -314,9 +315,19 @@
 					stretchedHeight = imgHeight;
 				}
 
-				// TODO center the image
+				// center the image
+				// TODO consolidate w/ logic below
+				if ( stretchedWidth < containerWidth ) {
+					offsetLeft = ( containerWidth - stretchedWidth ) / 2;
+				}
+				if ( stretchedHeight < containerHeight ) {
+					offsetTop = ( containerHeight - stretchedHeight ) / 2;
+				}
 
 			} else { // 'cover'
+				containerHeight = $containerSizingEl.outerHeight() || $containerSizingEl.height();  // outerHeight() for regular elements, and height() for window (which returns null for outerHeight())
+				containerWidth = $containerSizingEl.outerWidth() || $containerSizingEl.width();	    // outerWidth() for regular elements, and width() for window (which returns null for outerWidth())
+
 				stretchedWidth = containerWidth;
 				stretchedHeight = stretchedWidth / imgRatio;
 
