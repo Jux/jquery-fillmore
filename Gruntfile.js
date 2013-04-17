@@ -16,6 +16,9 @@ module.exports = function(grunt) {
         dest: 'jquery.fillmore.js'
       }
     },
+    qunit: {
+      all: ['test/**/*.html']
+    },
     uglify: {
       options: {
         banner: [
@@ -44,10 +47,11 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
   // Default task(s).
-  grunt.registerTask('default', ['concat', 'uglify']);
+  grunt.registerTask('default', ['concat', 'uglify', 'qunit']);
 
 };
