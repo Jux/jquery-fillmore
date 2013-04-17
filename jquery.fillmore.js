@@ -284,7 +284,9 @@
 			$image.css( { width: "auto", height: "auto" } );  // make sure the image element doesn't have any explicit width/height for the measurement (which may be added if it has been resized before)
 			
 			var imgSize = this.getImageSize(),
-				imgRatio = imgSize.width / imgSize.height,
+				imgWidth = imgSize.width,
+				imgHeight = imgSize.height,
+				imgRatio = imgWidth / imgHeight,
 				settings = this.settings,
 				$containerSizingEl = this.$containerSizingEl,
 				containerHeight = $containerSizingEl.outerHeight() || $containerSizingEl.height(),  // outerHeight() for regular elements, and height() for window (which returns null for outerHeight())
@@ -292,17 +294,41 @@
 
 				offsetLeft = 0,
 				offsetTop = 0,
-				stretchedWidth = containerWidth,
+				stretchedWidth, stretchedHeight;
+
+			if ( settings.mode === 'frame' ) {
+				if ( imgWidth > containerWidth || imgHeight > containerHeight ) {
+					// scale down - equivalent of 'background-size: contain'
+					// see http://stackoverflow.com/a/10297552/358804
+					var containerRatio = containerWidth / containerHeight;
+					if ( containerRatio > imgRatio ) {
+						stretchedHeight = containerHeight;
+						stretchedWidth = ( containerHeight / imgHeight ) * imgWidth;
+					} else {
+						stretchedWidth = containerWidth;
+						stretchedHeight = ( containerWidth / imgWidth ) * imgHeight;
+					}
+				} else {
+					// fits within the container - use natural image size
+					stretchedWidth = imgWidth;
+					stretchedHeight = imgHeight;
+				}
+
+				// TODO center the image
+
+			} else { // 'cover'
+				stretchedWidth = containerWidth;
 				stretchedHeight = stretchedWidth / imgRatio;
-			
-			// Make adjustments based on image ratio
-			// Note: Offset code inspired by Peter Baker (http://ptrbkr.com/). Thanks, Peter!
-			if( stretchedHeight >= containerHeight ) {
-				offsetTop = ( stretchedHeight - containerHeight ) * this.settings.focusY / 100;
-			} else {
-				stretchedHeight = containerHeight;
-				stretchedWidth = stretchedHeight * imgRatio;
-				offsetLeft = ( stretchedWidth - containerWidth ) * this.settings.focusX / 100;
+
+				// Make adjustments based on image ratio
+				// Note: Offset code inspired by Peter Baker (http://ptrbkr.com/). Thanks, Peter!
+				if( stretchedHeight >= containerHeight ) {
+					offsetTop = ( stretchedHeight - containerHeight ) * this.settings.focusY / 100;
+				} else {
+					stretchedHeight = containerHeight;
+					stretchedWidth = stretchedHeight * imgRatio;
+					offsetLeft = ( stretchedWidth - containerWidth ) * this.settings.focusX / 100;
+				}	
 			}
 			
 			return {
