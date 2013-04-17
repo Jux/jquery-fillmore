@@ -1,9 +1,25 @@
 module.exports = function(grunt) {
 
+  var banner = [
+    '/*!',
+    ' * jQuery Fillmore',
+    ' * Version <%= pkg.version %>',
+    ' * https://github.com/gregjacobs/jquery-fillmore',
+    ' *',
+    ' * Add a dynamically-resized background image to any element',
+    ' *',
+    ' * Copyright (c) 2012 Gregory Jacobs with Aidan Feldman (jux.com)',
+    ' * Dual licensed under the MIT and GPL licenses.',
+    ' */\n'
+  ].join('\n');
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
     concat: {
+      options: {
+        banner: banner
+      },
       dist: {
         src: [
           'src/Fillmore.js',
@@ -21,18 +37,7 @@ module.exports = function(grunt) {
     },
     uglify: {
       options: {
-        banner: [
-          '/*!',
-          ' * jQuery Fillmore',
-          ' * Version <%= pkg.version %>',
-          ' * https://github.com/gregjacobs/jquery-fillmore',
-          ' *',
-          ' * Add a dynamically-resized background image to any element',
-          ' *',
-          ' * Copyright (c) 2012 Gregory Jacobs with Aidan Feldman (jux.com)',
-          ' * Dual licensed under the MIT and GPL licenses.',
-          ' */\n'
-        ].join('\n')
+        banner: banner
       },
       min: {
         files: {
