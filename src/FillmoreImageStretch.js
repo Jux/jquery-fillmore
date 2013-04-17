@@ -129,25 +129,17 @@
 		resize : function() {
 			if( this.$imgEl && this.imageLoaded ) {  // make sure the image has been created and loaded, in case of a resize that happens too early
 				try {
-					var sizeAndOffsets = this.calculateStretchedSizeAndOffsets(),
-						bgCss;
+					var sizeAndOffsets = this.calculateStretchedSizeAndOffsets();
+					var bgCSS = {
+						left: sizeAndOffsets.offsetLeft,
+						top: sizeAndOffsets.offsetTop
+					};
 					
 					// Update the elements
 					if ( this.settings.mode === 'frame' ) {
 						this.$fillmoreEl.width( '100%' ).height( '100%' );
-
-						bgCSS = {
-							left: sizeAndOffsets.offsetLeft + "px",
-							top: sizeAndOffsets.offsetTop + "px"
-						};
-
 					} else {
 						this.$fillmoreEl.width( sizeAndOffsets.stretchedWidth ).height( sizeAndOffsets.stretchedHeight );
-
-						bgCSS = {
-							left: "-" + sizeAndOffsets.offsetLeft + "px",
-							top: "-" + sizeAndOffsets.offsetTop + "px"
-						};
 					}
 
 					this.$imgEl.width( sizeAndOffsets.stretchedWidth ).height( sizeAndOffsets.stretchedHeight ).css( bgCSS );

@@ -32,7 +32,7 @@
 		strictEqual( viewableArea.height, 600 );
 		strictEqual( viewableArea.width, 500 );
 		strictEqual( viewableArea.offsetTop, 0 );
-		strictEqual( viewableArea.offsetLeft, 95.62 );  // round to 2 decimal places
+		strictEqual( viewableArea.offsetLeft, -95.62 );  // round to 2 decimal places
 		strictEqual( viewableArea.stretchedHeight, 600 );
 		strictEqual( viewableArea.stretchedWidth, 691.24 );  // round to 2 decimal places
 	};

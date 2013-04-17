@@ -334,11 +334,11 @@
 				// Make adjustments based on image ratio
 				// Note: Offset code inspired by Peter Baker (http://ptrbkr.com/). Thanks, Peter!
 				if( stretchedHeight >= containerHeight ) {
-					offsetTop = ( stretchedHeight - containerHeight ) * this.settings.focusY / 100;
+					offsetTop = -1 * ( stretchedHeight - containerHeight ) * this.settings.focusY / 100;
 				} else {
 					stretchedHeight = containerHeight;
 					stretchedWidth = stretchedHeight * imgRatio;
-					offsetLeft = ( stretchedWidth - containerWidth ) * this.settings.focusX / 100;
+					offsetLeft = -1 * ( stretchedWidth - containerWidth ) * this.settings.focusX / 100;
 				}	
 			}
 			
